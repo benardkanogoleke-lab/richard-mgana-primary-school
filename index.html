@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123b6d">
+  <title>Richard Mgana Primary School | Digital School & Library</title>
+  <style>
+    :root{
+      --primary:#123b6d;
+      --primary-dark:#0b294b;
+      --accent:#f0a500;
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --text:#172033;
+      --muted:#6b7280;
+      --border:#e5eaf1;
+      --success:#16834b;
+      --danger:#c53b3b;
+      --shadow:0 8px 25px rgba(18,59,109,.08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .topbar{background:var(--primary-dark);color:#fff;padding:8px 5%;font-size:13px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50}
+    .nav{max-width:1250px;margin:auto;min-height:74px;padding:12px 5%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--primary);color:#fff;font-weight:800;border:3px solid var(--accent)}
+    .brand h1{font-size:17px;color:var(--primary);line-height:1.15}
+    .brand small{color:var(--muted);font-size:11px}
+    .navlinks{display:flex;align-items:center;gap:4px;list-style:none}
+    .navlinks button{border:0;background:transparent;color:#26364d;padding:9px 10px;border-radius:9px}
+    .navlinks button:hover,.navlinks button.active{background:#eef4fb;color:var(--primary)}
+    .menu{display:none;border:1px solid var(--border);background:#fff;border-radius:10px;padding:9px 12px}
+    .hero{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff}
+    .hero-inner{max-width:1250px;margin:auto;padding:58px 5%;display:grid;grid-template-columns:1.25fr .75fr;gap:35px;align-items:center}
+    .hero h2{font-size:clamp(30px,5vw,52px);line-height:1.05;margin-bottom:16px}
+    .hero p{color:#dce8f7;max-width:650px;margin-bottom:25px}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{border:0;border-radius:10px;padding:12px 18px;font-weight:700}
+    .btn-primary{background:var(--accent);color:#1b2430}
+    .btn-light{background:#fff;color:var(--primary)}
+    .hero-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:24px;border-radius:var(--radius);backdrop-filter:blur(5px)}
+    .hero-card h3{margin-bottom:12px}
+    .hero-card li{list-style:none;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px}
+    main{max-width:1250px;margin:auto;padding:42px 5%}
+    .section{display:none}
+    .section.active{display:block}
+    .section-title{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:22px}
+    .section-title h2{color:var(--primary);font-size:26px}
+    .section-title p{color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .card h3{font-size:17px;margin:10px 0 6px}
+    .card p{color:var(--muted);font-size:14px}
+    .icon{width:44px;height:44px;border-radius:12px;background:#edf4fc;color:var(--primary);display:grid;place-items:center;font-size:21px}
+    .stats{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:28px}
+    .stat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px}
+    .stat strong{display:block;font-size:25px;color:var(--primary)}
+    .stat span{font-size:12px;color:var(--muted)}
+    .tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .search{flex:1;min-width:220px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:#fff;outline:none}
+    .search:focus{border-color:var(--primary)}
+    .table-wrap{overflow:auto;background:#fff;border:1px solid var(--border);border-radius:14px}
+    table{width:100%;border-collapse:collapse;min-width:700px}
+    th,td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--border);font-size:14px}
+    th{background:#f7f9fc;color:var(--primary)}
+    .badge{display:inline-block;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700}
+    .available{background:#e8f7ef;color:var(--success)}
+    .locked{background:#fff1f1;color:var(--danger)}
+    .dashboard-grid{display:grid;grid-template-columns:1.4fr .6fr;gap:18px}
+    .list{display:grid;gap:10px}
+    .list-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px;border:1px solid var(--border);border-radius:10px}
+    .login-box{max-width:480px;margin:20px auto;background:#fff;padding:28px;border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow)}
+    .form-group{margin-bottom:15px}
+    .form-group label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+    .form-group input,.form-group select{width:100%;padding:12px;border:1px solid var(--border);border-radius:10px;background:#fff}
+    .notice{padding:14px;border-radius:10px;background:#eef6ff;color:#24527d;margin-bottom:16px;font-size:13px}
+    footer{background:var(--primary-dark);color:#dbe6f3;margin-top:40px}
+    .footer-inner{max-width:1250px;margin:auto;padding:30px 5%;display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
+    footer h3{color:#fff;margin-bottom:10px}
+    footer p,footer li{font-size:13px;color:#b9c9dc}
+    footer ul{list-style:none;display:grid;gap:6px}
+    .copyright{text-align:center;border-top:1px solid rgba(255,255,255,.1);padding:15px;font-size:12px}
+    @media(max-width:1000px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .stats{grid-template-columns:repeat(3,1fr)}
+      .hero-inner{grid-template-columns:1fr}
+    }
+    @media(max-width:760px){
+      .topbar{justify-content:center}
+      .nav{min-height:64px}
+      .menu{display:block}
+      .navlinks{display:none;position:absolute;top:64px;left:0;right:0;background:#fff;padding:10px 5%;border-bottom:1px solid var(--border);box-shadow:var(--shadow);flex-direction:column;align-items:stretch}
+      .navlinks.open{display:flex}
+      .navlinks button{text-align:left;width:100%}
+      .brand h1{font-size:14px}
+      .brand small{font-size:9px}
+      .logo{width:40px;height:40px}
+      .grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .dashboard-grid,.footer-inner{grid-template-columns:1fr}
+      main{padding-top:28px}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span>RICHARD MGANA PRIMARY SCHOOL</span>
+    <span>Digital School & Library Management System</span>
+  </div>
+
+  <header>
+    <nav class="nav">
+      <div class="brand">
+        <div class="logo">RM</div>
+        <div>
+          <h1>Richard Mgana Primary School</h1>
+          <small>Digital School & Library Management System</small>
+        </div>
+      </div>
+      <button class="menu" onclick="toggleMenu()">☰</button>
+      <ul class="navlinks" id="navlinks">
+        <li><button class="active" onclick="showSection('home',this)">Home</button></li>
+        <li><button onclick="showSection('library',this)">Library</button></li>
+        <li><button onclick="showSection('academics',this)">Academics</button></li>
+        <li><button onclick="showSection('students',this)">Students</button></li>
+        <li><button onclick="showSection('teachers',this)">Teachers</button></li>
+        <li><button onclick="showSection('announcements',this)">Announcements</button></li>
+        <li><button onclick="showSection('login',this)">Login</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="section active">
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <h2>One Digital Hub for the Whole School.</h2>
+          <p>Manage students, teachers, academics, examinations, attendance, timetable, digital library, finance, inventory, announcements and reports from one modern school system.</p>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="showSection('library')">Explore Library</button>
+            <button class="btn btn-light" onclick="showSection('login')">School Login</button>
+          </div>
+        </div>
+        <div class="hero-card">
+          <h3>System Modules</h3>
+          <ul>
+            <li>📚 Digital Library & Syllabus</li>
+            <li>👨‍🎓 Students & Parent Portal</li>
+            <li>👩‍🏫 Teachers & Academics</li>
+            <li>📝 Exams & Report Cards</li>
+            <li>📅 Attendance & Timetable</li>
+            <li>💰 Finance & Inventory</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="section-title">
+        <div><h2>School Management Centre</h2><p>A mobile-first foundation for the complete school system.</p></div>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="icon">👨‍🎓</div><h3>Students</h3><p>Registration, profiles, results, attendance, assignments and library history.</p></div>
+        <div class="card"><div class="icon">👩‍🏫</div><h3>Teachers</h3><p>Classes, subjects, timetable, marks, assignments and teaching materials.</p></div>
+        <div class="card"><div class="icon">📚</div><h3>Digital Library</h3><p>Books and learning resources organised from Class I to Class VII.</p></div>
+        <div class="card"><div class="icon">📊</div><h3>Reports</h3><p>Academic, attendance, library, finance, inventory and school reports.</p></div>
+      </div>
+    </main>
+  </section>
+
+  <main id="library" class="section">
+    <div class="section-title"><div><h2>📚 Digital Library</h2><p>Digital resources for Class I–VII.</p></div></div>
+    <div class="tools">
+      <input class="search" id="bookSearch" placeholder="Search book, subject, class or author..." oninput="filterBooks()">
+      <select class="search" id="classFilter" onchange="filterBooks()">
+        <option value="">All Classes</option><option>Class I</option><option>Class II</option><option>Class III</option><option>Class IV</option><option>Class V</option><option>Class VI</option><option>Class VII</option>
+      </select>
+    </div>
+    <div class="table-wrap">
+      <table id="booksTable">
+        <thead><tr><th>Book / Resource</th><th>Subject</th><th>Class</th><th>Author / Source</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Mathematics Learner's Book</td><td>Mathematics</td><td>Class V</td><td>School Collection</td><td><span class="badge available">Available</span></td><td><button class="btn btn-primary" onclick="alert('Library access will be connected to the member/login system in the next phase.')">READ</button></td></tr>
+          <tr><td>English Language Learner's Book</td><td>English</td><td>Class IV</td><td>School Collection</td><td><span class="badge available">Available</span></td><td><button class="btn btn-primary" onclick="alert('Library access will be connected to the member/login system in the next phase.')">READ</button></td></tr>
+          <tr><td>Science & Technology</td><td>Science</td><td>Class VI</td><td>School Collection</td><td><span class="badge available">Available</span></td><td><button class="btn btn-primary" onclick="alert('Library access will be connected to the member/login system in the next phase.')">READ</button></td></tr>
+          <tr><td>Kiswahili</td><td>Kiswahili</td><td>Class III</td><td>School Collection</td><td><span class="badge locked">Login Required</span></td><td><button class="btn btn-light" onclick="showSection('login')">LOGIN</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <main id="academics" class="section">
+    <div class="section-title"><div><h2>📖 Academics</h2><p>Academic structure prepared for future database connection.</p></div></div>
+    <div class="grid">
+      <div class="card"><div class="icon">📘</div><h3>Syllabus Centre</h3><p>Class I–VII subjects, topics, sub-topics, objectives, activities and assessment.</p></div>
+      <div class="card"><div class="icon">📝</div><h3>Assignments</h3><p>Teachers create assignments and students view or submit them.</p></div>
+      <div class="card"><div class="icon">🕐</div><h3>Timetable</h3><p>School, class and teacher timetables in one place.</p></div>
+      <div class="card"><div class="icon">📊</div><h3>Examinations</h3><p>Marks, grades, averages, positions and report cards.</p></div>
+    </div>
+  </main>
+
+  <main id="students" class="section">
+    <div class="section-title"><div><h2>👨‍🎓 Students</h2><p>Student management centre.</p></div></div>
+    <div class="stats">
+      <div class="stat"><strong>—</strong><span>Total Students</span></div>
+      <div class="stat"><strong>—</strong><span>Present Today</span></div>
+      <div class="stat"><strong>—</strong><span>Absent Today</span></div>
+      <div class="stat"><strong>7</strong><span>Classes</span></div>
+      <div class="stat"><strong>—</strong><span>Pending Fees</span></div>
+      <div class="stat"><strong>—</strong><span>Assignments</span></div>
+    </div>
+    <div class="notice">The student database, registration, attendance and results will be connected to Supabase after the foundation interface is approved.</div>
+    <div class="card"><h3>Student Profile Fields</h3><p>Student ID • Full Name • Gender • Date of Birth • Class • Stream • Parent/Guardian • Phone • Address • Admission Date • Photo • Status</p></div>
+  </main>
+
+  <main id="teachers" class="section">
+    <div class="section-title"><div><h2>👩‍🏫 Teachers</h2><p>Teacher management and teaching workspace.</p></div></div>
+    <div class="grid">
+      <div class="card"><div class="icon">🏫</div><h3>My Classes</h3><p>Manage assigned classes and learners.</p></div>
+      <div class="card"><div class="icon">📚</div><h3>My Subjects</h3><p>Manage subjects and teaching materials.</p></div>
+      <div class="card"><div class="icon">🗓️</div><h3>My Timetable</h3><p>View teaching periods and schedule.</p></div>
+      <div class="card"><div class="icon">✍️</div><h3>Marks & Assignments</h3><p>Enter marks and manage assignments.</p></div>
+    </div>
+  </main>
+
+  <main id="announcements" class="section">
+    <div class="section-title"><div><h2>📢 Announcements</h2><p>Important school communication.</p></div></div>
+    <div class="list">
+      <div class="list-item"><div><strong>Welcome to Richard Mgana Digital School System</strong><p style="color:#6b7280;font-size:13px">System foundation is ready for the next development phases.</p></div><span class="badge available">ALL</span></div>
+      <div class="list-item"><div><strong>Digital Library</strong><p style="color:#6b7280;font-size:13px">Library catalogue will be expanded with official school resources.</p></div><span class="badge available">STUDENTS</span></div>
+    </div>
+  </main>
+
+  <main id="login" class="section">
+    <div class="login-box">
+      <div class="section-title"><div><h2>🔐 School Login</h2><p>Secure role-based access.</p></div></div>
+      <div class="notice">Authentication will be connected to Supabase Auth. Roles will include Super Admin, Head Teacher, Academic Master/Mistress, Teacher, Librarian, Accountant, Storekeeper, Parent and Student.</div>
+      <div class="form-group"><label>Email / Username</label><input type="text" placeholder="Enter email or username"></div>
+      <div class="form-group"><label>Password</label><input type="password" placeholder="Enter password"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="alert('Authentication will be connected to Supabase in the next development phase.')">SIGN IN</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div><h3>Richard Mgana Primary School</h3><p>Digital School & Library Management System — a central platform for school administration, academics, communication and digital learning.</p></div>
+      <div><h3>Modules</h3><ul><li>Students</li><li>Teachers</li><li>Library</li><li>Examinations</li><li>Attendance</li></ul></div>
+      <div><h3>Administration</h3><ul><li>Finance</li><li>Inventory</li><li>Announcements</li><li>Reports</li><li>Settings</li></ul></div>
+    </div>
+    <div class="copyright">© <span id="year"></span> Richard Mgana Primary School. All rights reserved.</div>
+  </footer>
+
+  <script>
+    function showSection(id, button){
+      document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+      const target=document.getElementById(id);
+      if(target) target.classList.add('active');
+      document.querySelectorAll('.navlinks button').forEach(b=>b.classList.remove('active'));
+      if(button) button.classList.add('active');
+      document.getElementById('navlinks').classList.remove('open');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    function toggleMenu(){document.getElementById('navlinks').classList.toggle('open')}
+    function filterBooks(){
+      const q=document.getElementById('bookSearch').value.toLowerCase();
+      const c=document.getElementById('classFilter').value.toLowerCase();
+      document.querySelectorAll('#booksTable tbody tr').forEach(row=>{
+        const text=row.innerText.toLowerCase();
+        row.style.display=(text.includes(q)&&(!c||text.includes(c)))?'':'none';
+      });
+    }
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
